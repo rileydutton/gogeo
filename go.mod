@@ -1,4 +1,4 @@
-module github.com/arl/gogeo
+module github.com/rileydutton/gogeo
 
 go 1.14
 

@@ -26,7 +26,7 @@ func init() {
 // Rect is shorthand for Rectangle{Vec3(x0, y0), Vec3(x1, y1)}. The returned
 // rectangle has minimum and maximum coordinates swapped if necessary so that
 // it is well-formed.
-func Rect(x0, y0, z0, x1, y1, z1 float32) Rectangle {
+func Rect(x0, y0, z0, x1, y1, z1 float64) Rectangle {
 	if x0 > x1 {
 		x0, x1 = x1, x0
 	}
@@ -41,7 +41,7 @@ func Rect(x0, y0, z0, x1, y1, z1 float32) Rectangle {
 
 // RectWHD returns a rectangle whose origin is Vec3{x,y,z}, w and h are its
 // width, height and depth.
-func RectWHD(x, y, z, w, h, d float32) Rectangle {
+func RectWHD(x, y, z, w, h, d float64) Rectangle {
 	return Rectangle{
 		Min: Vec3{x, y, z},
 		Max: Vec3{x + w, y + h, z + d},
@@ -50,7 +50,7 @@ func RectWHD(x, y, z, w, h, d float32) Rectangle {
 
 // RectFromSphere returns the minimum rectangle that contains the circle of
 // center c and radius r.
-func RectFromSphere(c Vec3, r float32) Rectangle {
+func RectFromSphere(c Vec3, r float64) Rectangle {
 	return RectWHD(c[0]-r, c[1]-r, c[2]-r, 2*r, 2*r, 2*r)
 }
 
@@ -76,17 +76,17 @@ func (r Rectangle) Center() Vec3 {
 }
 
 // Dx returns r's width.
-func (r Rectangle) Dx() float32 {
+func (r Rectangle) Dx() float64 {
 	return r.Max[0] - r.Min[0]
 }
 
 // Dy returns r's height.
-func (r Rectangle) Dy() float32 {
+func (r Rectangle) Dy() float64 {
 	return r.Max[1] - r.Min[1]
 }
 
 // Dz returns r's depth.
-func (r Rectangle) Dz() float32 {
+func (r Rectangle) Dz() float64 {
 	return r.Max[2] - r.Min[2]
 }
 
@@ -118,7 +118,7 @@ func (r Rectangle) Sub(v Vec3) Rectangle {
 // Inset returns the rectangle r inset by n, which may be negative. If either
 // of r's dimensions is less than 2*n then an empty rectangle near the center
 // of r will be returned.
-func (r Rectangle) Inset(n float32) Rectangle {
+func (r Rectangle) Inset(n float64) Rectangle {
 	if r.Dx() < 2*n {
 		r.Min[0] = (r.Min[0] + r.Max[0]) / 2
 		r.Max[0] = r.Min[0]
